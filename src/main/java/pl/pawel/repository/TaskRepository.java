@@ -1,16 +1,24 @@
 package pl.pawel.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
-import org.springframework.stereotype.Repository;
+import pl.pawel.model.Note;
 import pl.pawel.model.Task;
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository {
+
+    List<Task> findAll();
+
+    Page<Task> findAll(Pageable pageable);
+
+    Optional<Task> findById(Long id);
+
+    Task save(Task task);
 
     /**
      * Pobiera taski według przekazanego parametru
@@ -19,4 +27,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
     @RestResource(path = "done", rel = "done")
     List<Task> findByDone(@Param("state") boolean done);
+
+    boolean existsById(Long id);
 }

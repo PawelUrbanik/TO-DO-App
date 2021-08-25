@@ -6,13 +6,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pl.pawel.model.Note;
 import pl.pawel.repository.NoteRepository;
 
 import java.util.List;
 
-@RepositoryRestController
+@Controller
 public class NoteController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(NoteController.class);
@@ -22,13 +25,13 @@ public class NoteController {
         this.noteRepository = noteRepository;
     }
 
-    @GetMapping(value = "/notes", params = {"!sort", "!page", "!size"})
+    @RequestMapping(value = "/notes", params = {"!sort", "!page", "!size"}, method = RequestMethod.GET)
     public ResponseEntity<List<Note>> readAllNotes(){
         LOGGER.warn("REQUEST GET ALL NOTES");
         return ResponseEntity.ok(noteRepository.findAll());
     }
 
-    @GetMapping("/notes")
+    @RequestMapping(value = "/notes", method = RequestMethod.GET)
     public ResponseEntity<List<Note>> readAllNotes(Pageable pageable)
     {
          LOGGER.warn("REQUEST GET ALL NOTES WITH PARAMETER");
