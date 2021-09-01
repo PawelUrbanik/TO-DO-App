@@ -5,12 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import pl.pawel.model.Task;
 import pl.pawel.repository.TaskRepository;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,6 +74,16 @@ public class TaskController {
 
         if (saved == null) return ResponseEntity.badRequest().build();
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    }
+
+    @Transactional
+    @PatchMapping("/tasks/{id}")
+    public ResponseEntity<?> toggleTask(@PathVariable Long id) {
+        if (!taskRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        taskRepository.findById(id).ifPresent(task -> task.setDone(!task.isDone()));
+        return ResponseEntity.noContent().build();
     }
 
 }
