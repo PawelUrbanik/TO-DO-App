@@ -37,21 +37,24 @@ public class TaskController {
     }
 
     @PutMapping("/tasks/{id}")
-    public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody @Valid Task task)
+    public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody @Valid Task toUpdate)
     {
         if (!taskRepository.existsById(id))
         {
             return ResponseEntity.notFound().build();
         }
 
-        if (task.getId()!=0 && !id.equals(task.getId()))
+        if (toUpdate.getId()!=0 && !id.equals(toUpdate.getId()))
         {
             return ResponseEntity.badRequest().build();
         }
 
-        task.setId(id);
-        LOGGER.warn("Update obj");
-        taskRepository.save(task);
+        taskRepository.findById(id).ifPresent(task -> {
+            task.updateFrom(toUpdate);
+            LOGGER.warn("Update obj");
+            taskRepository.save(toUpdate);
+        });
+
         return ResponseEntity.noContent().build();
     }
 
