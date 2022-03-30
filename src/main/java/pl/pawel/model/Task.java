@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tasks")
-public class Task extends BaseAuditableEntity{
+public class Task {
 
     public Task() {
     }
@@ -19,6 +19,8 @@ public class Task extends BaseAuditableEntity{
     private String description;
     private boolean done;
     private LocalDateTime deadline;
+    @Embedded
+    private Audit audit = new Audit();
 
 
     void setId(long id) {
