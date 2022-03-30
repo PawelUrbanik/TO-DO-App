@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tasks")
-public class Task {
+public class Task extends BaseAuditableEntity{
 
     public Task() {
     }
@@ -19,8 +19,7 @@ public class Task {
     private String description;
     private boolean done;
     private LocalDateTime deadline;
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
+
 
     void setId(long id) {
         this.id = id;
@@ -52,17 +51,6 @@ public class Task {
 
     public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
-    }
-
-    @PrePersist
-    void preMerge(){
-        createdOn = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    void preUpdate()
-    {
-        updatedOn=LocalDateTime.now();
     }
 
     public void updateFrom(final Task toUpdate) {
