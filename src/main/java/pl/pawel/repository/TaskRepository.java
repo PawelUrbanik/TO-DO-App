@@ -29,4 +29,11 @@ public interface TaskRepository {
     List<Task> findByDone(@Param("state") boolean done);
 
     boolean existsById(Long id);
+
+    /**
+     *Sprawdza czy wszystkie taski należące do grupy są wykonane. Tzn czy znajduje sie jeden który nie jest wykoanny
+     * @param groupId parametr grupy
+     * @return czy znajduje się jeden który nie jest wykonany
+     */
+    boolean existsByDoneIsFalseAndGroup_Id(Integer groupId);
 }

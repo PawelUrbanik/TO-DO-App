@@ -3,28 +3,24 @@ package pl.pawel.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
-@Table(name = "tasks")
-public class Task {
+@Table(name = "task_groups")
+public class TaskGroups {
 
-    public Task() {
+    public TaskGroups() {
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @NotBlank(message = "Opis nie może byc pusty")
     private String description;
     private boolean done;
-    private LocalDateTime deadline;
-    @Embedded
     private Audit audit = new Audit();
-
-    @ManyToOne
-    @JoinColumn(name = "task_group_id")
-    private TaskGroups group;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+    private Set<Task> tasks;
 
 
     void setId(long id) {
@@ -51,26 +47,11 @@ public class Task {
         this.done = done;
     }
 
-    public LocalDateTime getDeadline() {
-        return deadline;
+    public Set<Task> getTasks() {
+        return tasks;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
-
-    TaskGroups getGroup() {
-        return group;
-    }
-
-    void setGroup(TaskGroups group) {
-        this.group = group;
-    }
-
-    public void updateFrom(final Task toUpdate) {
-        setDone(toUpdate.isDone());
-        setDescription(toUpdate.getDescription());
-        setDeadline(toUpdate.getDeadline());
-        setGroup(toUpdate.getGroup());
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 }

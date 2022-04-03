@@ -7,5 +7,6 @@ import pl.pawel.model.Task;
 @Repository
 interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Long> {
 
-
+    @Override
+    boolean existsByDoneIsFalseAndGroup_Id(Integer groupId);
 }
