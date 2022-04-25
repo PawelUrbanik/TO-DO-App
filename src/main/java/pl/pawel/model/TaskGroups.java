@@ -19,6 +19,7 @@ public class TaskGroups {
     private String description;
     private boolean done;
     private Audit audit = new Audit();
+    //Fetch type LAZY domyślnie, Wewmnątrz każdego taska grupa jest zmapowana przez group
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Task> tasks;
 
