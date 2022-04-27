@@ -1,6 +1,7 @@
 package pl.pawel.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,9 @@ public class Project {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private Set<TaskGroups> taskGroups;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    private Set<ProjectSteps> steps;
 
     public int getId() {
         return id;
@@ -45,5 +49,18 @@ public class Project {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return id == project.id && Objects.equals(description, project.description) && Objects.equals(taskGroups, project.taskGroups) && Objects.equals(steps, project.steps);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, taskGroups, steps);
     }
 }
