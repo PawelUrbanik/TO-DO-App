@@ -15,4 +15,5 @@ public interface SqlTaskGroupRepository  extends TaskGroupRepository, JpaReposit
     @Override
     @Query(nativeQuery = false, value = "from TaskGroups g join fetch g.tasks")
     List<TaskGroups> findAll();
+
 }
