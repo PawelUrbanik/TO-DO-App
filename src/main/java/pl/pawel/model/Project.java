@@ -13,7 +13,7 @@ public class Project {
     private int id;
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    @OneToMany(mappedBy = "project")
     private Set<TaskGroups> taskGroups;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
@@ -35,12 +35,20 @@ public class Project {
         this.description = description;
     }
 
-    public Set<TaskGroups> getTaskGroups() {
+    Set<TaskGroups> getTaskGroups() {
         return taskGroups;
     }
 
     public void setTaskGroups(Set<TaskGroups> taskGroups) {
         this.taskGroups = taskGroups;
+    }
+
+    Set<ProjectSteps> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(Set<ProjectSteps> steps) {
+        this.steps = steps;
     }
 
     @Override

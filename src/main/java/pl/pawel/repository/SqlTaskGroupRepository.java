@@ -13,7 +13,14 @@ public interface SqlTaskGroupRepository  extends TaskGroupRepository, JpaReposit
     //Zapytanie poprzez HQL
     //Skrócony SELECT, zamiast nazwy tabeli nazwa encji/Klasy
     @Override
-    @Query(nativeQuery = false, value = "from TaskGroups g join fetch g.tasks")
+    @Query(nativeQuery = false, value = " select distinct g from TaskGroups g join fetch g.tasks")
     List<TaskGroups> findAll();
 
+    /**
+     * Czy istnieją niezrobione taski dla danego projektu
+     * @param projectId id projektu
+     * @return prawda/fałsz
+     */
+    @Override
+    boolean existsByDoneIsFalseAndProject_Id(Integer projectId);
 }

@@ -61,7 +61,7 @@ public class TaskGroups {
         this.tasks = tasks;
     }
 
-    public Project getProject() {
+    Project getProject() {
         return project;
     }
 

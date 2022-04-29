@@ -41,13 +41,15 @@ public class ProjectSteps {
         this.daysToDeadline = daysToDeadline;
     }
 
-    public Project getProject() {
+    Project getProject() {
         return project;
     }
 
     public void setProject(Project project) {
         this.project = project;
     }
+
+
 
     @Override
     public String toString() {

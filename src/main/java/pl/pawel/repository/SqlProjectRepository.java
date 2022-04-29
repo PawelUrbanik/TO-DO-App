@@ -11,7 +11,11 @@ import java.util.List;
 public interface SqlProjectRepository extends ProjectRepository, JpaRepository<Project, Integer> {
 
 
+    /**
+     * Wyszukuje projekty i kroki dla projektów. tylko te które mają kroki
+     * @return
+     */
     @Override
-    @Query(value = "from Project p join fetch p.steps")
+    @Query(value = "select distinct p from Project p join fetch p.steps")
     List<Project> findAll();
 }

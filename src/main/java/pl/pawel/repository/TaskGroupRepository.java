@@ -13,5 +13,5 @@ interface TaskGroupRepository {
 
     TaskGroups save(TaskGroups taskGroups);
 
-    Optional<TaskGroups> findByDoneIsFalseAndProject_Id(Integer projectId);
+    boolean existsByDoneIsFalseAndProject_Id(Integer projectId);
 }
