@@ -5,7 +5,7 @@ import pl.pawel.model.TaskGroups;
 import java.util.List;
 import java.util.Optional;
 
-interface TaskGroupRepository {
+public interface TaskGroupRepository {
 
     List<TaskGroups> findAll();
 
