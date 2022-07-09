@@ -1,5 +1,7 @@
 package pl.pawel.service;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 import pl.pawel.model.TaskGroups;
@@ -15,23 +17,23 @@ import java.util.stream.Collectors;
 @RequestScope
 public class TaskGroupService {
 
-    private TaskGroupRepository repository;
+    private TaskGroupRepository taskGroupRepository;
     private TaskRepository taskRepository;
 
     public TaskGroupService(TaskGroupRepository repository, TaskRepository taskRepository) {
-        this.repository = repository;
+        this.taskGroupRepository = repository;
         this.taskRepository = taskRepository;
     }
 
 
     public GroupReadModel createGroup(GroupWriteModel writeModel)
     {
-        TaskGroups result =repository.save(writeModel.toGroup());
+        TaskGroups result = taskGroupRepository.save(writeModel.toGroup());
         return new GroupReadModel(result);
     }
 
     public List<GroupReadModel> getAll(){
-        return repository.findAll().stream()
+        return taskGroupRepository.findAll().stream()
                 .map(GroupReadModel::new)
                 .collect(Collectors.toList());
     }
@@ -43,7 +45,7 @@ public class TaskGroupService {
             throw new IllegalStateException("Grupa ma niezakończone taski. Zakończ taski.");
         }
 
-        TaskGroups result= repository.findById(grupId).orElseThrow(()-> new IllegalArgumentException("Nie znaleziono taska z takim id"));
+        TaskGroups result= taskGroupRepository.findById(grupId).orElseThrow(()-> new IllegalArgumentException("Nie znaleziono taska z takim id"));
         result.setDone(!result.isDone());
     }
 
