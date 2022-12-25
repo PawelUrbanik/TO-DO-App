@@ -8,7 +8,7 @@ import java.util.*;
 
 public class TestTaskRepository implements TaskRepository {
 
-    private Map<Integer, Task> tasks = Collections.emptyMap();
+    private Map<Integer, Task> tasks = new HashMap<>();
 
 
 
