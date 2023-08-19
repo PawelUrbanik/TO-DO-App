@@ -1,6 +1,7 @@
 package pl.pawel.model.projection;
 
 import pl.pawel.model.Task;
+import pl.pawel.model.TaskGroups;
 
 import java.time.LocalDateTime;
 
@@ -24,7 +25,7 @@ public class GroupTaskWriteModel {
         this.deadline = deadline;
     }
 
-    public Task toTask(){
-        return new Task(description, deadline);
+    public Task toTask(final TaskGroups group){
+        return new Task(description, deadline, group);
     }
 }

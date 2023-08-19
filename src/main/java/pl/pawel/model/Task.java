@@ -27,11 +27,16 @@ public class Task {
     private TaskGroups group;
 
     public Task(String description, LocalDateTime deadline) {
-        this.description=description;
-        this.deadline = deadline;
+        this(description, deadline, null);
     }
 
-
+    public Task(String description, LocalDateTime deadline, TaskGroups group) {
+        this.description=description;
+        this.deadline = deadline;
+        if (group != null) {
+            this.setGroup(group);
+        }
+    }
     void setId(long id) {
         this.id = id;
     }
