@@ -8,7 +8,7 @@ import java.util.*;
 
 public class TestTaskRepository implements TaskRepository {
 
-    private Map<Integer, Task> tasks = new HashMap<>();
+    private Map<Long, Task> tasks = new HashMap<>();
 
 
 
@@ -29,7 +29,17 @@ public class TestTaskRepository implements TaskRepository {
 
     @Override
     public Task save(Task task) {
-        return tasks.put(tasks.size()+1, task);
+        final long key = tasks.size() + 1;
+        try {
+            var field = Task.class.getDeclaredField("id");
+            field.setAccessible(true);
+            field.set(task, key);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        tasks.put(key, task);
+        return tasks.get(key);
+
     }
 
     @Override
