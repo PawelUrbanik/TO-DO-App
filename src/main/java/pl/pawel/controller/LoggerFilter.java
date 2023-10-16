@@ -19,12 +19,15 @@ public class LoggerFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if (servletRequest instanceof HttpServletRequest) {
-            var httpReq = (HttpServletRequest) servletRequest;
-            logger.info("msg: [doFilter]" +  httpReq.getMethod() + " " + httpReq.getRequestURI());
+        try {
+            if (servletRequest instanceof HttpServletRequest) {
+                var httpReq = (HttpServletRequest) servletRequest;
+                logger.info("msg: [doFilter] " + httpReq.getMethod() + " " + httpReq.getRequestURI());
+                filterChain.doFilter(servletRequest, servletResponse);
+            }
+        } finally {
+            logger.info("msg: [doFilter] " + "finished");
         }
-
-        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
