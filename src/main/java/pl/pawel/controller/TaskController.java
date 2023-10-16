@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/tasks")
 public class TaskController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class);
@@ -24,19 +25,19 @@ public class TaskController {
         this.taskRepository = TaskRepository;
     }
 
-    @GetMapping(value = "/tasks", params = {"!sort", "!page", "!size"})
+    @GetMapping(params = {"!sort", "!page", "!size"})
     public ResponseEntity<List<Task>> readAllTasks(){
         LOGGER.warn("REQUES GET ALL");
         return ResponseEntity.ok(taskRepository.findAll());
     }
 
-    @GetMapping("/tasks")
+    @GetMapping
     public ResponseEntity<List<Task>> readAllTasks(Pageable pageable) {
         LOGGER.warn("REQUES GET ALL WITH PARAMETER");
         return ResponseEntity.ok(taskRepository.findAll(pageable).getContent());
     }
 
-    @PutMapping("/tasks/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody @Valid Task toUpdate)
     {
         if (!taskRepository.existsById(id))
@@ -58,7 +59,7 @@ public class TaskController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/tasks/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getTaskById(@PathVariable Long id)
     {
 
@@ -70,7 +71,7 @@ public class TaskController {
         }
     }
 
-    @PostMapping("/tasks")
+    @PostMapping
     public ResponseEntity<?> createTask(@RequestBody @Valid Task taskToSave)
     {
         Task saved = taskRepository.save(taskToSave);
@@ -80,7 +81,7 @@ public class TaskController {
     }
 
     @Transactional
-    @PatchMapping("/tasks/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<?> toggleTask(@PathVariable Long id) {
         if (!taskRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
@@ -89,4 +90,10 @@ public class TaskController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("search/")
+    ResponseEntity<List<Task>> findByDone(@RequestParam(defaultValue = "true", name = "dones") boolean done){
+        return ResponseEntity.ok(
+                taskRepository.findByDone(done)
+        );
+    }
 }
