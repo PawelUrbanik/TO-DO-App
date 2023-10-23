@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import pl.pawel.model.Task;
 import pl.pawel.repository.TaskRepository;
+import pl.pawel.service.TaskService;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/tasks")
@@ -20,9 +22,11 @@ public class TaskController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository taskRepository;
+    private final TaskService taskService;
 
-    public TaskController(TaskRepository TaskRepository) {
+    public TaskController(TaskRepository TaskRepository, TaskService taskService) {
         this.taskRepository = TaskRepository;
+        this.taskService = taskService;
     }
 
     @GetMapping(params = {"!sort", "!page", "!size"})
@@ -32,9 +36,10 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> readAllTasks(Pageable pageable) {
+    public CompletableFuture<ResponseEntity<List<Task>>> readAllTasks(Pageable pageable) {
         LOGGER.warn("REQUES GET ALL WITH PARAMETER");
-        return ResponseEntity.ok(taskRepository.findAll(pageable).getContent());
+        return taskService.findAllAsync().thenApply(ResponseEntity::ok);
+//        return ResponseEntity.ok(taskRepository.findAll(pageable).getContent());
     }
 
     @PutMapping("/{id}")
