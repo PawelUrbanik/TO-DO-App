@@ -9,7 +9,7 @@ public interface TaskGroupRepository {
 
     List<TaskGroups> findAll();
 
-    Optional<TaskGroups> findById(Integer id);
+    Optional<TaskGroups> findById(Long id);
 
     TaskGroups save(TaskGroups taskGroups);
 

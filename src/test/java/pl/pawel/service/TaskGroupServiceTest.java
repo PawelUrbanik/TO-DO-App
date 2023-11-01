@@ -17,6 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,7 +38,7 @@ class TaskGroupServiceTest {
         @DisplayName("Should return illegalstateexception when group contains udnode tasks")
         void toogleGroup_shouldReturnIllegalStateException() {
             //given
-            when(taskRepository.existsByDoneIsFalseAndGroup_Id(anyInt())).thenReturn(true);
+            when(taskRepository.existsByDoneIsFalseAndGroup_Id(anyLong())).thenReturn(true);
 
             //when
             Throwable exception = catchThrowable(() -> taskGroupService.toogleGroup(0));
@@ -63,7 +64,7 @@ class TaskGroupServiceTest {
         void toogleGroup_shouldToggleGroup() {
             //given
             TaskGroups taskGroup = new TaskGroups();
-            when(taskGroupRepository.findById(anyInt())).thenReturn(Optional.of(taskGroup));
+//            when(taskGroupRepository.findById(anyInt())).thenReturn(Optional.of(taskGroup));
             //then
             assertAll(
                     () -> assertFalse(taskGroup.isDone()),

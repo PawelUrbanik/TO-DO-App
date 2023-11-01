@@ -2,13 +2,16 @@ package pl.pawel.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
+import pl.pawel.model.Task;
 import pl.pawel.model.TaskGroups;
 import pl.pawel.model.projection.GroupReadModel;
 import pl.pawel.model.projection.GroupWriteModel;
 import pl.pawel.repository.TaskGroupRepository;
 import pl.pawel.repository.TaskRepository;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +39,7 @@ public class TaskGroupService {
                 .collect(Collectors.toList());
     }
 
-    public void toogleGroup(int grupId)
+    public void toogleGroup(long grupId)
     {
         if (taskRepository.existsByDoneIsFalseAndGroup_Id(grupId))
         {
@@ -47,6 +50,17 @@ public class TaskGroupService {
         result.setDone(!result.isDone());
         taskGroupRepository.save(result);
     }
+
+    public List<Task> getAllTasksByGroupId(Long id) {
+        //check if group exist
+        final Optional<TaskGroups> byId = taskGroupRepository.findById(id);
+        if (byId.isPresent()) {
+            return taskRepository.findAllByGroup_Id(id);
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
 
 
 }

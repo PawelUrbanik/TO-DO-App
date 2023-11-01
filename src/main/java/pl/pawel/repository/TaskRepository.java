@@ -35,5 +35,9 @@ public interface TaskRepository {
      * @param groupId parametr grupy
      * @return czy znajduje się jeden który nie jest wykonany
      */
-    boolean existsByDoneIsFalseAndGroup_Id(Integer groupId);
+    boolean existsByDoneIsFalseAndGroup_Id(Long groupId);
+
+    List<Task> findAllByGroup_Id(Long groupId);
+
+
 }

@@ -53,7 +53,13 @@ public class TestTaskRepository implements TaskRepository {
     }
 
     @Override
-    public boolean existsByDoneIsFalseAndGroup_Id(Integer groupId) {
+    public boolean existsByDoneIsFalseAndGroup_Id(Long groupId) {
         return false;
     }
+
+    @Override
+    public List<Task> findAllByGroup_Id(Long groupId) {
+        return null;
+    }
+
 }

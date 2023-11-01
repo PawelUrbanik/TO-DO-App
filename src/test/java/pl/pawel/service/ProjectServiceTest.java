@@ -17,7 +17,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
@@ -175,7 +176,7 @@ class ProjectServiceTest {
         }
 
         @Override
-        public Optional<TaskGroups> findById(Integer id) {
+        public Optional<TaskGroups> findById(Long id) {
             return Optional.ofNullable(taskGroupsMap.get(id));
         }
 
