@@ -2,6 +2,7 @@ package pl.pawel.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
+import pl.pawel.model.Project;
 import pl.pawel.model.Task;
 import pl.pawel.model.TaskGroups;
 import pl.pawel.model.projection.GroupReadModel;
@@ -29,7 +30,10 @@ public class TaskGroupService {
 
     public GroupReadModel createGroup(GroupWriteModel writeModel)
     {
-        TaskGroups result = taskGroupRepository.save(writeModel.toGroup());
+        return createGroup(writeModel, null);
+    }
+    GroupReadModel createGroup(GroupWriteModel groupWriteModel, Project project) {
+        TaskGroups result = taskGroupRepository.save(groupWriteModel.toGroup(project));
         return new GroupReadModel(result);
     }
 

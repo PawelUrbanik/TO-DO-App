@@ -6,6 +6,7 @@ import pl.pawel.model.Project;
 import pl.pawel.model.projection.GroupReadModel;
 import pl.pawel.model.projection.GroupTaskWriteModel;
 import pl.pawel.model.projection.GroupWriteModel;
+import pl.pawel.model.projection.ProjectWriteModel;
 import pl.pawel.repository.ProjectRepository;
 import pl.pawel.repository.TaskGroupRepository;
 
@@ -29,7 +30,7 @@ public class ProjectService {
         this.taskGroupService = taskGroupService;
     }
 
-    public Project createPoject(final Project projectToSave) {
+    public Project createProject(final ProjectWriteModel projectToSave) {
         return projectRepository.save(projectToSave);
     }
 
@@ -55,7 +56,7 @@ public class ProjectService {
                                         return task;
                                     }).collect(Collectors.toSet())
                     );
-                    return taskGroupService.createGroup(targetGroup);
+                    return taskGroupService.createGroup(targetGroup, project);
                 }).orElseThrow(() -> new IllegalArgumentException("Project with given id not found"));
         return result;
     }

@@ -1,5 +1,6 @@
 package pl.pawel.model.projection;
 
+import pl.pawel.model.Project;
 import pl.pawel.model.Task;
 import pl.pawel.model.TaskGroups;
 
@@ -11,7 +12,7 @@ public class GroupWriteModel {
     private String description;
     private Set<GroupTaskWriteModel> tasks;
 
-    public TaskGroups toGroup(){
+    public TaskGroups toGroup(Project project){
         var group = new TaskGroups();
         group.setDescription(this.description);
         group.setTasks(
@@ -19,6 +20,7 @@ public class GroupWriteModel {
                         .map(source -> source.toTask(group))
                         .collect(Collectors.toSet())
         );
+        group.setProject(project);
         return group;
     }
 
