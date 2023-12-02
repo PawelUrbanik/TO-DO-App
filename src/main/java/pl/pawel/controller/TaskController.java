@@ -12,6 +12,7 @@ import pl.pawel.repository.TaskRepository;
 import pl.pawel.service.TaskService;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -100,5 +101,14 @@ public class TaskController {
         return ResponseEntity.ok(
                 taskRepository.findByDone(done)
         );
+    }
+
+    @GetMapping("search/TasksForToday")
+    ResponseEntity<List<Task>> findTaskForToday() {
+        List<Task> tasksForToday = taskService.findTasksForToday();
+        if (tasksForToday.isEmpty()) {
+            tasksForToday.add(new Task("Brak tasków na dziś. Leć na kawę :) ", LocalDateTime.now()));
+        }
+        return ResponseEntity.ok(tasksForToday);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.pawel.model.Task;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -20,4 +21,7 @@ interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Long> {
 
     @Override
     List<Task> findAllByGroup_Id(Long groupId);
+
+    @Override
+    List<Task> findAllByDoneFalseAndDeadlineNullOrDeadlineIsBefore(LocalDateTime dateTime);
 }

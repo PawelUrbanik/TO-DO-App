@@ -7,6 +7,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import pl.pawel.model.Note;
 import pl.pawel.model.Task;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +40,4 @@ public interface TaskRepository {
 
     List<Task> findAllByGroup_Id(Long groupId);
 
-
-}
+    List<Task> findAllByDoneFalseAndDeadlineNullOrDeadlineIsBefore(LocalDateTime dateTime);}
