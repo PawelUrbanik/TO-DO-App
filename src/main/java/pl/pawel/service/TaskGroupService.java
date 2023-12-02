@@ -39,7 +39,7 @@ public class TaskGroupService {
                 .collect(Collectors.toList());
     }
 
-    public void toogleGroup(long grupId)
+    public void toggleGroup(long grupId)
     {
         if (taskRepository.existsByDoneIsFalseAndGroup_Id(grupId))
         {

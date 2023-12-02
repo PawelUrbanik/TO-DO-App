@@ -14,7 +14,7 @@ public class TaskGroups {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotBlank(message = "Opis nie może byc pusty")
     private String description;
     private boolean done;
@@ -29,11 +29,11 @@ public class TaskGroups {
 
 
 
-    void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

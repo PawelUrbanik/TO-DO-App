@@ -11,12 +11,9 @@ import pl.pawel.model.TaskGroups;
 import pl.pawel.repository.TaskGroupRepository;
 import pl.pawel.repository.TaskRepository;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +38,7 @@ class TaskGroupServiceTest {
             when(taskRepository.existsByDoneIsFalseAndGroup_Id(anyLong())).thenReturn(true);
 
             //when
-            Throwable exception = catchThrowable(() -> taskGroupService.toogleGroup(0));
+            Throwable exception = catchThrowable(() -> taskGroupService.toggleGroup(0));
             //then
             assertThat(exception)
                     .isInstanceOf(IllegalStateException.class)
@@ -52,7 +49,7 @@ class TaskGroupServiceTest {
         @DisplayName("Should return IllegalArgumentException when task not exist")
         void toogleGroup_shouldReturnIllegalArgumentExceptionn() {
             //when
-            Throwable exception = catchThrowable(() -> taskGroupService.toogleGroup(0));
+            Throwable exception = catchThrowable(() -> taskGroupService.toggleGroup(0));
             //then
             assertThat(exception)
                     .isInstanceOf(IllegalArgumentException.class)
@@ -69,7 +66,7 @@ class TaskGroupServiceTest {
             assertAll(
                     () -> assertFalse(taskGroup.isDone()),
                     () -> {
-                        taskGroupService.toogleGroup(0);
+                        taskGroupService.toggleGroup(0);
                         assertTrue(taskGroup.isDone());
                     }
             );

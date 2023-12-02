@@ -20,6 +20,7 @@ public class GroupReadModel {
 
     public GroupReadModel(TaskGroups source) {
         this.description = source.getDescription();
+        this.id = source.getId();
         source.getTasks().stream()
                 .map(Task::getDeadline)
                 .max(LocalDateTime::compareTo)
