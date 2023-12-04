@@ -8,10 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pawel.model.ProjectSteps;
 import pl.pawel.model.projection.ProjectWriteModel;
+import pl.pawel.service.ProjectService;
 
 @Controller
 @RequestMapping("projects")
 public class ProjectController {
+
+    private final ProjectService projectService;
+
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     @GetMapping
     String showProjects(Model model) {
@@ -24,6 +31,14 @@ public class ProjectController {
     @PostMapping(params = "addStep")
     String addProjectStep(@ModelAttribute("project") ProjectWriteModel current) {
         current.getSteps().add(new ProjectSteps());
+        return "projects";
+    }
+
+    @PostMapping
+    String addProject(@ModelAttribute("project") ProjectWriteModel current, Model model) {
+        projectService.createProject(current);
+        model.addAttribute("project", new ProjectWriteModel());
+        model.addAttribute("message", "Dodano projekt");
         return "projects";
     }
 

@@ -31,7 +31,7 @@ public class ProjectService {
     }
 
     public Project createProject(final ProjectWriteModel projectToSave) {
-        return projectRepository.save(projectToSave);
+        return projectRepository.save(projectToSave.toProject());
     }
 
     public List<Project> getAll() {

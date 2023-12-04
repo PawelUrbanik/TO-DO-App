@@ -66,9 +66,4 @@ public class Project {
         Project project = (Project) o;
         return id == project.id && Objects.equals(description, project.description) && Objects.equals(taskGroups, project.taskGroups) && Objects.equals(steps, project.steps);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, description, taskGroups, steps);
-    }
 }

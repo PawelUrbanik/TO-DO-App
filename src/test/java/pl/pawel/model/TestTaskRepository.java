@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import pl.pawel.repository.TaskRepository;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class TestTaskRepository implements TaskRepository {
@@ -59,6 +60,11 @@ public class TestTaskRepository implements TaskRepository {
 
     @Override
     public List<Task> findAllByGroup_Id(Long groupId) {
+        return null;
+    }
+
+    @Override
+    public List<Task> findAllByDoneFalseAndDeadlineNullOrDeadlineIsBefore(LocalDateTime dateTime) {
         return null;
     }
 
