@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO APP: Projects</title>
     <link rel="stylesheet" href="https://igoradamenko.com/awsm.css/v2/css/awsm.css">
+    <style>
+        .bd{
+            border: solid 1px black;
+        }
+        .p\(0\) {
+            padding: 0;
+        }
+        .p\(10\){
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -12,10 +23,10 @@
 
     <h1 th:if="${message != null}" th:text="${message}"></h1>
     <!--/*@thymesVar id="projects" type="java.util.List<pl.pawel.model.projection.ProjectWriteModel>"*/-->
-    <dl th:each="project: ${projects}">
+    <dl th:each="project: ${projects}" class="bd p(10)">
         <dt th:text="${project.description}">...</dt>
         <dd>
-            <ul>
+            <ul class="p(0)">
                 <li th:each="step: ${project.steps}" th:text="${step.description} + ' ' + ${step.daysToDeadline}"></li>
             </ul>
         </dd>
