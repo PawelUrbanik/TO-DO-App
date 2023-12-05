@@ -15,6 +15,13 @@
         .p\(10\){
             padding: 10px;
         }
+        .bdc\(red\) {
+            border-color: red;
+        }
+        .c\(red\) {
+            color: red;
+        }
+
     </style>
 </head>
 <body>
@@ -36,16 +43,17 @@
     <form method="post" th:action="@{/projects}" th:object="${project}">
         <fieldset>
             <legend>Nowy projekt</legend>
+            <p th:if="${#fields.hasAnyErrors()}" th:errors="*{all}" class="c(red)"></p>
             <label>Opis
                 <input type="text" th:field="*{description}"/>
             </label>
             <fieldset th:each="step,stepStat: *{steps}">
                 <legend th:text="|Krok ${stepStat.index + 1} |"></legend>
                 <label>Opis
-                    <input type="text" th:field="*{steps[__${stepStat.index}__].description}">
+                    <input type="text" th:field="*{steps[__${stepStat.index}__].description}" th:errorclass="'bdc(red)'">
                 </label>
                 <label>Dni do końca projektu
-                <input type="number" th:field="*{steps[__${stepStat.index}__].daysToDeadline}">
+                <input type="number" th:field="*{steps[__${stepStat.index}__].daysToDeadline}" th:errorclass="'bdc(red)'">
                 </label>
             </fieldset>
 
