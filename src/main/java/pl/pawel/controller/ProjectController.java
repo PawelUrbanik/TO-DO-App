@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.pawel.model.Project;
 import pl.pawel.model.ProjectSteps;
 import pl.pawel.model.projection.ProjectWriteModel;
 import pl.pawel.service.ProjectService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("projects")
@@ -40,6 +43,12 @@ public class ProjectController {
         model.addAttribute("project", new ProjectWriteModel());
         model.addAttribute("message", "Dodano projekt");
         return "projects";
+    }
+
+
+    @ModelAttribute("projects")
+    List<Project> getProjects() {
+        return projectService.getAll();
     }
 
 }

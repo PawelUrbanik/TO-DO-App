@@ -11,6 +11,15 @@
 <main>
 
     <h1 th:if="${message != null}" th:text="${message}"></h1>
+    <!--/*@thymesVar id="projects" type="java.util.List<pl.pawel.model.projection.ProjectWriteModel>"*/-->
+    <dl th:each="project: ${projects}">
+        <dt th:text="${project.description}">...</dt>
+        <dd>
+            <ul>
+                <li th:each="step: ${project.steps}" th:text="${step.description} + ' ' + ${step.daysToDeadline}"></li>
+            </ul>
+        </dd>
+    </dl>
 
     <!--/*@thymesVar id="project" type="pl.pawel.model.projection.ProjectWriteModel"*/-->
     <form method="post" th:action="@{/projects}" th:object="${project}">
