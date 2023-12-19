@@ -29,7 +29,7 @@ public class TaskService {
 
     public List<Task> findTasksForToday() {
         LocalDateTime today = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59);
-        final List<Task> tasks = taskRepository.findAllByDoneFalseAndDeadlineNullOrDeadlineIsBefore(today);
+        final List<Task> tasks = taskRepository.findTasksByDoneIsFalseAndDeadlineIsNullorDeadlineBefore(today);
         return tasks;
     }
 }

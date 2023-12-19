@@ -23,5 +23,6 @@ interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Long> {
     List<Task> findAllByGroup_Id(Long groupId);
 
     @Override
-    List<Task> findAllByDoneFalseAndDeadlineNullOrDeadlineIsBefore(LocalDateTime dateTime);
+    @Query("select t from Task t where t.done = false and (t.deadline is null or t.deadline < :deadline)")
+    List<Task> findTasksByDoneIsFalseAndDeadlineIsNullorDeadlineBefore(@Param("deadline") LocalDateTime dateTime);
 }

@@ -64,7 +64,7 @@ public class TestTaskRepository implements TaskRepository {
     }
 
     @Override
-    public List<Task> findAllByDoneFalseAndDeadlineNullOrDeadlineIsBefore(LocalDateTime dateTime) {
+    public List<Task> findTasksByDoneIsFalseAndDeadlineIsNullorDeadlineBefore(LocalDateTime dateTime) {
         return null;
     }
 

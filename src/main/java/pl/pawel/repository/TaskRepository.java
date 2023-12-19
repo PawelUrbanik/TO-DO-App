@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
-import pl.pawel.model.Note;
 import pl.pawel.model.Task;
 
 import java.time.LocalDateTime;
@@ -40,4 +39,4 @@ public interface TaskRepository {
 
     List<Task> findAllByGroup_Id(Long groupId);
 
-    List<Task> findAllByDoneFalseAndDeadlineNullOrDeadlineIsBefore(LocalDateTime dateTime);}
+    List<Task> findTasksByDoneIsFalseAndDeadlineIsNullorDeadlineBefore(LocalDateTime dateTime);}
