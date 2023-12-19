@@ -15,7 +15,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Opis nie może byc pusty")
+    @NotBlank(message = "Opis Taska nie może byc pusty")
     private String description;
     private boolean done;
     private LocalDateTime deadline;

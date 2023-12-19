@@ -1,6 +1,7 @@
 package pl.pawel.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.pawel.TaskConfigurationProperties;
 import pl.pawel.model.Project;
 import pl.pawel.model.projection.GroupReadModel;
@@ -38,6 +39,7 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
+    @Transactional
     public GroupReadModel createGroup(int projectId, LocalDateTime deadline) {
         if (!taskConfigurationProperties.getTemplte().isAllowMultipleTasks() && taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)) {
             throw new IllegalStateException("Only one undone task from project is allowed");

@@ -15,7 +15,7 @@ public class TaskGroups {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Opis nie może byc pusty")
+    @NotBlank(message = "Opis Grupy nie może byc pusty")
     private String description;
     private boolean done;
     private Audit audit = new Audit();

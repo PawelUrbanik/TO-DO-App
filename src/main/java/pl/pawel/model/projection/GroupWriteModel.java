@@ -4,13 +4,14 @@ import pl.pawel.model.Project;
 import pl.pawel.model.Task;
 import pl.pawel.model.TaskGroups;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GroupWriteModel {
 
     private String description;
-    private Set<GroupTaskWriteModel> tasks;
+    private Set<GroupTaskWriteModel> tasks = new HashSet<>();
 
     public TaskGroups toGroup(Project project){
         var group = new TaskGroups();
