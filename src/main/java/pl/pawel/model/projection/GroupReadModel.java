@@ -4,6 +4,7 @@ import pl.pawel.model.Task;
 import pl.pawel.model.TaskGroups;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,7 @@ public class GroupReadModel {
         this.id = source.getId();
         source.getTasks().stream()
                 .map(Task::getDeadline)
+                .filter(Objects::nonNull)
                 .max(LocalDateTime::compareTo)
                 .ifPresent(lastDeadline -> deadline=lastDeadline);
         tasks = source.getTasks().stream().map(GroupTaskReadModel::new).collect(Collectors.toSet());
