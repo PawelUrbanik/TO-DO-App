@@ -4,6 +4,7 @@ import pl.pawel.model.Task;
 import pl.pawel.model.TaskGroups;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ public class GroupReadModel {
      * The deadline of latest task
      */
     private LocalDateTime deadline;
-    private Set<GroupTaskReadModel> tasks;
+    private List<GroupTaskReadModel> tasks;
 
     public GroupReadModel(TaskGroups source) {
         this.description = source.getDescription();
@@ -27,7 +28,7 @@ public class GroupReadModel {
                 .filter(Objects::nonNull)
                 .max(LocalDateTime::compareTo)
                 .ifPresent(lastDeadline -> deadline=lastDeadline);
-        tasks = source.getTasks().stream().map(GroupTaskReadModel::new).collect(Collectors.toSet());
+        tasks = source.getTasks().stream().map(GroupTaskReadModel::new).collect(Collectors.toList());
     }
 
     public String getDescription() {
@@ -46,11 +47,11 @@ public class GroupReadModel {
         this.deadline = deadline;
     }
 
-    public Set<GroupTaskReadModel> getTasks() {
+    public List<GroupTaskReadModel> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<GroupTaskReadModel> tasks) {
+    public void setTasks(List<GroupTaskReadModel> tasks) {
         this.tasks = tasks;
     }
 

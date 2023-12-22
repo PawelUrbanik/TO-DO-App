@@ -110,7 +110,7 @@ class ProjectServiceTest {
             assertAll(
                     ()-> assertThat(countBeforeCall).isEqualTo(inMemoryGroupRepository.count() - 1),
                     () -> assertEquals(result.getDescription(), "Opis"),
-                    () -> assertTrue(result.getTasks().stream().allMatch(task -> task.getDescriiption().equals("foo")))
+                    () -> assertTrue(result.getTasks().stream().allMatch(task -> task.getDescription().equals("foo")))
             );
         }
     }

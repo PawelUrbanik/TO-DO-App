@@ -5,10 +5,10 @@ import pl.pawel.model.Task;
 public class GroupTaskReadModel {
 
     private boolean done;
-    private String descriiption;
+    private String description;
 
     public GroupTaskReadModel(Task task) {
-        this.descriiption = task.getDescription();
+        this.description = task.getDescription();
         this.done= task.isDone();
     }
 
@@ -20,12 +20,12 @@ public class GroupTaskReadModel {
         this.done = done;
     }
 
-    public String getDescriiption() {
-        return descriiption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriiption(String descriiption) {
-        this.descriiption = descriiption;
+    public void setDescription(String descriiption) {
+        this.description = descriiption;
     }
 
 

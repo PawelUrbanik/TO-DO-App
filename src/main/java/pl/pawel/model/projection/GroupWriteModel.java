@@ -1,17 +1,17 @@
 package pl.pawel.model.projection;
 
 import pl.pawel.model.Project;
-import pl.pawel.model.Task;
 import pl.pawel.model.TaskGroups;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class GroupWriteModel {
 
     private String description;
-    private Set<GroupTaskWriteModel> tasks = new HashSet<>();
+    private List<GroupTaskWriteModel> tasks = new ArrayList<>();
 
     public TaskGroups toGroup(Project project){
         var group = new TaskGroups();
@@ -33,11 +33,11 @@ public class GroupWriteModel {
         this.description = description;
     }
 
-    public Set<GroupTaskWriteModel> getTasks() {
+    public List<GroupTaskWriteModel> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<GroupTaskWriteModel> tasks) {
+    public void setTasks(List<GroupTaskWriteModel> tasks) {
         this.tasks = tasks;
     }
 }

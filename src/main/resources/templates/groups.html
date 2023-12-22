@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Groups</title>
+    <link rel="stylesheet" href="https://igoradamenko.com/awsm.css/v2/css/awsm.css">
+    <style>
+        .del {
+            text-decoration: line-through;
+            background-color: #fbb;
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+
+<dl th:each="group: ${groups}" class="bd p(10)">
+    <dt th:text="${group.description}">...</dt>
+    <dd>
+        <ul class="p(0)">
+            <li th:each="task: ${group.tasks}">
+                <span th:text="${task.description}"  th:classappend="${task.done ? 'del' : ''} "></span>
+            </li>
+        </ul>
+    </dd>
+</dl>
+
+<form method="post" th:action="@{/groups}" th:object="${group}">
+    <fieldset>
+        <legend>Nowa Grupa</legend>
+        <p th:if="${#fields.hasAnyErrors()}" th:errors="*{all}" class="c(red)"></p>
+        <label>Opis
+            <input type="text" th:field="*{description}"/>
+        </label>
+        <fieldset th:each="task,stepStat: *{tasks}">
+            <legend th:text="|Zadanie ${stepStat.index + 1} |"></legend>
+            <label>Opis
+                <input type="text" th:field="*{tasks[__${stepStat.index}__].description}" th:errorclass="'bdc(red)'">
+            </label>
+            <label>Done
+                <input type="datetime-local" th:field="*{tasks[__${stepStat.index}__].deadline}" th:errorclass="'bdc(red)'">
+            </label>
+        </fieldset>
+
+        <div>
+            <button type="submit" name="addTask">+</button>
+        </div>
+    </fieldset>
+
+    <p>
+        <button type="submit">Dodaj</button>
+        <button type="reset">Wyczyść</button>
+    </p>
+</form>
+
+</body>
+</html>
