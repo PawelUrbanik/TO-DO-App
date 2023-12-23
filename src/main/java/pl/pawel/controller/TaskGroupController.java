@@ -74,6 +74,14 @@ public class TaskGroupController {
         return ResponseEntity.ok(taskGroups);
     }
 
+    @GetMapping(path = "/tasks")
+    public String getTasksForGroup(@RequestParam("group") long groupId, Model model) {
+        final List<Task> allTasksByGroupId = taskGroupService.getAllTasksByGroupId(groupId);
+        model.addAttribute("tasksForGroup", allTasksByGroupId);
+        return "tasks";
+
+    }
+
 
     @ResponseBody
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

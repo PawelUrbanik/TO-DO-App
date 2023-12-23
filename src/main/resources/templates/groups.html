@@ -32,7 +32,8 @@
 <body>
 
 <dl th:each="group: ${groups}" class="bd p(10)">
-    <dt th:text="${group.description}">...</dt>
+    <a th:href="@{groups/tasks(group=${group.id})}">
+    <dt th:text="${group.description}">...</dt></a>
     <dd>
         <ul class="p(0)">
             <li th:each="task: ${group.tasks}">

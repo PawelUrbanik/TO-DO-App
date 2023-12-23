@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://igoradamenko.com/awsm.css/v2/css/awsm.css">
+    <style>
+        .bd{
+            border: solid 1px black;
+        }
+        .p\(10\){
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<dl th:each="task: ${tasksForGroup}" class="bd p(10)">
+    <span th:text="${task.description} + ${task.deadline}"  th:classappend="${task.done ? 'del' : ''} "></span>
+</dl>
+
+</body>
+</html>
