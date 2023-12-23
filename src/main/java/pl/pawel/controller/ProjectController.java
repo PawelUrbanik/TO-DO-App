@@ -1,5 +1,6 @@
 package pl.pawel.controller;
 
+import io.micrometer.core.annotation.Timed;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +55,7 @@ public class ProjectController {
     }
 
 
+    @Timed(value = "project.create.group", histogram = true, percentiles = {0.5, 0.95, 0.99})
     @PostMapping("/{projectId}")
     public String createGroup(
             Model model,
