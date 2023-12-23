@@ -16,7 +16,8 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
 public class GroupTaskWriteModel {
     @NotBlank(message = "Opis Taska nie może byc pusty")
     private String description;
-    @NotNull(message = "Deadline nie może być pusty")
+    @NotNull(message = "Deadline taska nie może być pusty")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime deadline;
 
     private List<Task> tasks = new ArrayList<>();

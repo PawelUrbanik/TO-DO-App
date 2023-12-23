@@ -3,6 +3,7 @@ package pl.pawel.model.projection;
 import pl.pawel.model.Project;
 import pl.pawel.model.TaskGroups;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ public class GroupWriteModel {
 
     @NotBlank(message = "Opis Grupy nie może byc pusty")
     private String description;
+    @Valid
     private List<GroupTaskWriteModel> tasks = new ArrayList<>();
 
     public TaskGroups toGroup(Project project){
