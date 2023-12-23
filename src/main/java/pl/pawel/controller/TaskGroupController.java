@@ -25,6 +25,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/groups")
+@IllegalExceptionProcessing
 public class TaskGroupController {
 
 
@@ -105,16 +106,6 @@ public class TaskGroupController {
     public ResponseEntity<?> toggleGroup(@PathVariable Long id) {
         taskGroupService.toggleGroup(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e) {
-        return ResponseEntity.notFound().build();
-    }
-
-    @ExceptionHandler(IllegalStateException.class)
-    ResponseEntity<String> handleIllegalState(IllegalStateException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ModelAttribute("groups")
