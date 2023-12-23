@@ -43,13 +43,13 @@ public class TaskGroupController {
         return "groups";
     }
 
-    @PostMapping(params = "addTask")
+    @PostMapping(params = "addTask", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String addTaskToGroup(@ModelAttribute("group") GroupTaskWriteModel current) {
         current.getTasks().add(new Task());
         return "groups";
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String addGroup(
             @ModelAttribute("group") @Valid GroupWriteModel writeModel,
             BindingResult bindingResult,

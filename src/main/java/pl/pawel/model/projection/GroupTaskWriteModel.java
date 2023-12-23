@@ -4,6 +4,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import pl.pawel.model.Task;
 import pl.pawel.model.TaskGroups;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,9 @@ import java.util.Set;
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
 public class GroupTaskWriteModel {
+    @NotBlank(message = "Opis Taska nie może byc pusty")
     private String description;
+    @NotNull(message = "Deadline nie może być pusty")
     private LocalDateTime deadline;
 
     private List<Task> tasks = new ArrayList<>();
