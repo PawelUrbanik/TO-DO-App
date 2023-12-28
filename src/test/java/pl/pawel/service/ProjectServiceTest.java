@@ -201,6 +201,13 @@ class ProjectServiceTest {
                     .filter(taskGroups -> !taskGroups.isDone())
                     .anyMatch(taskGroup -> taskGroup.getProject() != null && taskGroup.getProject().getId() == projectId);
         }
+
+        @Override
+        public boolean existsByDescription(String description) {
+
+            return taskGroupsMap.values().stream()
+                    .anyMatch(group -> group.getDescription().equals(description));
+        }
     }
 
     ;
