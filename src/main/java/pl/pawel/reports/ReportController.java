@@ -30,6 +30,20 @@ public class ReportController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/count/beforeDeadline/{id}")
+    public ResponseEntity<TaskWithChangesCount> readTasksChangedBeforeDeadline(@PathVariable long id) {
+        return taskRepository.findById(id)
+                .map(task ->{
+                    if (task.getDeadline() == null){
+                       return new TaskWithChangesCount(task, eventsRepository.findByTaskId(id));
+                    } else {
+                        return new TaskWithChangesCount(task, eventsRepository.findByTaskIdAndOccurrenceBefore(id, task.getDeadline()));
+                    }
+                } )
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     private static class TaskWithChangesCount {
         public String description;
         public boolean done;
