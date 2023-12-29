@@ -1,5 +1,7 @@
 package pl.pawel.model;
 
+import pl.pawel.event.TaskEvent;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -57,8 +59,9 @@ public class Task {
         return done;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public TaskEvent toggle() {
+        this.done = !this.done;
+        return TaskEvent.changed(this);
     }
 
     public LocalDateTime getDeadline() {
@@ -78,7 +81,7 @@ public class Task {
     }
 
     public void updateFrom(final Task toUpdate) {
-        setDone(toUpdate.isDone());
+        this.done = toUpdate.done;
         setDescription(toUpdate.getDescription());
         setDeadline(toUpdate.getDeadline());
         setGroup(toUpdate.getGroup());

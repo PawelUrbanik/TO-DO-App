@@ -2,6 +2,7 @@ package pl.pawel.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,12 @@ public class TaskController {
     public static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository taskRepository;
     private final TaskService taskService;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public TaskController(TaskRepository TaskRepository, TaskService taskService) {
+    public TaskController(TaskRepository TaskRepository, TaskService taskService, ApplicationEventPublisher eventPublisher) {
         this.taskRepository = TaskRepository;
         this.taskService = taskService;
+        this.eventPublisher = eventPublisher;
     }
 
     @GetMapping(params = {"!sort", "!page", "!size"})
@@ -92,7 +95,9 @@ public class TaskController {
         if (!taskRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        taskRepository.findById(id).ifPresent(task -> task.setDone(!task.isDone()));
+        taskRepository.findById(id)
+                .map(Task::toggle)
+                .ifPresent(eventPublisher::publishEvent);
         return ResponseEntity.noContent().build();
     }
 
