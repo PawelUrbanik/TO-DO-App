@@ -3,6 +3,7 @@ package pl.pawel.reports;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import pl.pawel.event.TaskDone;
 import pl.pawel.event.TaskEvent;
@@ -17,12 +18,13 @@ public class ChangedTaskEventListener {
     public ChangedTaskEventListener(PersistedTaskEventsRepository persistedTaskEventsRepository) {
         this.persistedTaskEventsRepository = persistedTaskEventsRepository;
     }
-
+    @Async
     @EventListener
     public void on(TaskDone event) {
         onChanged(event);
     }
 
+    @Async
     @EventListener
     public void on(TaskUndone event) {
         onChanged(event);
